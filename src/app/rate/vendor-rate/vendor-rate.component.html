@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-sm-12" id="fdxl">
+        <div class="a1">
+            <h5 style="text-align: center"> Vendor Rate </h5>
+            <div class="row px-5 py-3">
+                <div class="col-sm-6">
+                    <form class="example-form">
+                        <mat-form-field class="example-full-width">
+                            <input type="text" placeholder="Vendor*" aria-label="Number" matInput
+                                [formControl]="myControl" [matAutocomplete]="auto" name="selectedValue" #autocompleteInput>
+                            <mat-autocomplete autoActiveFirstOption autoSelectActiveOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </form>
+                </div>
+                <div class="col-sm-6">
+                    <button mat-raised-button color="primary" (click)="openDialog()">Location</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-primary">
+                        <tr>
+                            <th scope="col">Job Title</th>
+                            <th scope="col">Family</th>
+                            <th scope="col">ExpLevel</th>
+                            <th scope="col">YoE</th>
+                            <th scope="col">ProfLevel</th>
+                            <th scope="col">Onsite</th>
+                            <th scope="col">Dom</th>
+                            <th scope="col">Offshore</th>
+                            <th scope="col">NearShor</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of filterData()">
+                            <td>{{data.job_title}}</td>
+                            <td>{{data.family}}</td>
+                            <td>{{data.explevel}}</td>
+                            <td>{{data.yoe}}</td>
+                            <td>{{data.proflevel}}</td>
+                            <td>{{data.onsite}}</td>
+                            <td>{{data.dom}}</td>
+                            <td>{{data.offshore}}</td>
+                            <td>{{data.nearshore}}</td>
+                            <td><button mat-icon-button matTooltip="Edit" aria-label="edit" (click)="edit(data)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="filterData().length <= 0">
+                    No Data Found
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3" id="fdxr">
+        <div class="a1 p-3" *ngIf="editData" style="position: relative;">
+            <h6>{{editData.job_title}}</h6>
+            <form class="example-form mt-4">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Onsite</mat-label>
+                            <input matInput placeholder="Onsite" [(ngModel)]="editData.onsite" name="onsite">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Dom</mat-label>
+                            <input matInput placeholder="Onsite" [(ngModel)]="editData.dom" name="dom">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Offshore</mat-label>
+                            <input matInput placeholder="Onsite" [(ngModel)]="editData.offshore" name="offshore">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>NearShore</mat-label>
+                            <input matInput placeholder="nearshore" [(ngModel)]="editData.nearshore" name="nearshore">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <div class="gg">
+                <button mat-stroked-button (click)="close()">Cancel</button>
+                <button mat-flat-button color="primary" (click)="apply()">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
